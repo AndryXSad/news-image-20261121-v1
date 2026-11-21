@@ -210,11 +210,14 @@ LAND = [N_AMERICA, S_AMERICA, AFRICA, EUROPE, ASIA, BRITAIN, JAPAN,
         SE_ASIA, AUSTRALIA, NEW_ZEALAND, GREENLAND, MADAGASCAR, BORNEO,
         NEW_GUINEA, SUMATRA, CUBA, ICELAND]
 
-# (number, lon, lat, nudge_x, nudge_y)
+# (number, lon, lat, nudge_x, nudge_y) — nudges keep every pin on land
+# (verified by point-in-polygon against LAND, min separation >= 20 px):
+# pin 4 (Tallinn) and pin 6 (Mukalla) floated in the sea before;
+# pin 8 (Wellington) sat on the New Zealand coastline.
 PINS = [("1", -76.2, -11.0, 0, 0), ("2", 30.7, 36.9, 18, 2),
-        ("3", -77.0, 38.9, 0, 0), ("4", 24.7, 59.4, 0, 0),
-        ("5", 34.5, 31.5, -8, 6), ("6", 49.1, 14.5, 0, 0),
-        ("7", 77.2, 28.6, 0, 0), ("8", 174.8, -41.3, 0, 0)]
+        ("3", -77.0, 38.9, 0, 0), ("4", 24.7, 59.4, -10, 4),
+        ("5", 34.5, 31.5, -8, 6), ("6", 49.1, 14.5, -10, 4),
+        ("7", 77.2, 28.6, 0, 0), ("8", 174.8, -41.3, 0, -2)]
 KEY = ["1  JUN\u00cdN \u2014 M6.8 quake; Lima shaken; no deaths",
        "2  ANTALYA \u2014 COP31 overtime; fossil-fuel row",
        "3  WASHINGTON \u2014 Trump delays Iran-strike decision",
@@ -277,7 +280,9 @@ def art_quake(dr, x, y):
     """Seismograph trace: quiet line, then a violent spike, then calm."""
     w, h = 312, 62
     dr.rectangle([x, y, x + w, y + h], fill=SLATE)
-    # faint grid
+    # graticule: vertical time divisions + faint horizontals
+    for gx in range(x + 28, x + w, 28):
+        dr.line([(gx, y + 4), (gx, y + h - 4)], fill=SKY, width=1)
     for gy in (y + 16, y + 31, y + 46):
         dr.line([(x + 6, gy), (x + w - 6, gy)], fill=SKY, width=1)
     rng = random.Random(SEED + 11)
@@ -292,46 +297,75 @@ def art_quake(dr, x, y):
         else:
             amp = rng.uniform(-4, 4)
         pts.append((px, mid + amp))
+    # glow under the trace, then the crisp white line
+    dr.line(pts, fill=(96, 118, 150), width=5)
     dr.line(pts, fill=(247, 243, 232), width=2)
-    # red spike marker at the biggest jolt
-    dr.ellipse([x + 152, mid - 30, x + 160, mid - 22], fill=RED)
+    # red ring + dot at the biggest jolt
+    dr.ellipse([x + 148, mid - 28, x + 164, mid - 12], outline=RED,
+               width=2)
+    dr.ellipse([x + 152, mid - 24, x + 160, mid - 16], fill=RED)
     dr.text((x + 8, y + 5), "M6.8", font=load_font("sans_b", 16),
             fill=(247, 243, 232))
-    dr.text((x + 226, y + 5), "DEPTH 129 KM",
-            font=load_font("sans_b", 11), fill=GOLD)
+    # depth label right-aligned inside the box (was clipped at the edge)
+    dr.text((x + w - 8, y + 5), "DEPTH 129 KM",
+            font=load_font("sans_b", 11), fill=GOLD, anchor="ra")
     dr.text((x, y + h + 4), "00:09 UTC \u2022 30 km NW of Jun\u00edn",
             font=load_font("sans", 10), fill=GRAY)
+
+
+def star(dr, cx, cy, r, fill):
+    """A small five-point star centred on (cx, cy)."""
+    pts = []
+    for k in range(10):
+        ang = -math.pi / 2 + k * math.pi / 5
+        rr = r if k % 2 == 0 else r * 0.45
+        pts.append((cx + rr * math.cos(ang), cy + rr * math.sin(ang)))
+    dr.polygon(pts, fill=fill)
 
 
 def art_cop(dr, x, y):
     """A warming globe: blue circle, land blobs, a rising thermometer."""
     w, h = 312, 62
-    dr.rectangle([x, y, x + w, y + h], fill=SEA)
+    # two-tone sky: pale top band, deeper below
+    dr.rectangle([x, y, x + w, y + 30], fill=(226, 238, 244))
+    dr.rectangle([x, y + 30, x + w, y + h], fill=SEA)
     cx, cy = x + 62, y + 31
+    # soft shadow under the globe
+    dr.ellipse([cx - 30, cy + 24, cx + 30, cy + 32], fill=(190, 208, 220))
     dr.ellipse([cx - 28, cy - 28, cx + 28, cy + 28], fill=STEEL,
                outline=INK, width=2)
     # land blobs on the globe
     dr.ellipse([cx - 20, cy - 16, cx - 2, cy - 2], fill=LANDC)
     dr.ellipse([cx + 2, cy + 2, cx + 18, cy + 18], fill=LANDC)
     dr.ellipse([cx - 6, cy + 8, cx + 8, cy + 20], fill=LANDC)
-    # graticule arcs on the globe
+    # graticule arcs + highlight on the upper-left limb
     dr.arc([cx - 28, cy - 28, cx + 28, cy + 28], 200, 340, fill=MAPLINE,
            width=1)
     dr.ellipse([cx - 12, cy - 28, cx + 12, cy + 28], outline=MAPLINE)
-    # thermometer, mercury climbing
+    dr.arc([cx - 28, cy - 28, cx + 28, cy + 28], 150, 260,
+           fill=(220, 235, 245), width=2)
+    # two thin cloud swirls
+    dr.arc([cx - 18, cy - 10, cx + 2, cy + 4], 200, 340,
+           fill=(247, 247, 247), width=2)
+    dr.arc([cx - 4, cy + 6, cx + 16, cy + 18], 20, 160,
+           fill=(247, 247, 247), width=2)
+    # thermometer, mercury climbing, with tick marks
     tx = x + 148
     dr.rectangle([tx, y + 6, tx + 12, y + 50], fill=PANEL, outline=INK,
                  width=1)
     dr.rectangle([tx + 2, y + 22, tx + 10, y + 48], fill=RED)
     dr.ellipse([tx - 3, y + 44, tx + 15, y + 60], fill=RED, outline=INK)
+    for ty in (y + 12, y + 22, y + 32, y + 42):
+        dr.line([(tx - 3, ty), (tx, ty)], fill=INK, width=1)
     for ty, lab in ((y + 6, "1.5\u00b0C"), (y + 24, "1.0\u00b0C"),
                     (y + 42, "0.5\u00b0C")):
         dr.text((tx + 18, ty), lab, font=load_font("sans", 9), fill=INK)
-    # the zero that matters: no fossil fuels named
+    # the zero that matters: no fossil fuels named (right-aligned:
+    # the old "NAMED: 0" ran past the panel's right edge)
     dr.text((x + 216, y + 6), "FOSSIL FUELS", font=load_font("sans_b", 11),
             fill=INK)
-    dr.text((x + 216, y + 22), "NAMED: 0", font=load_font("sans_b", 18),
-            fill=RED)
+    dr.text((x + w - 8, y + 22), "NAMED: 0", font=load_font("sans_b", 17),
+            fill=RED, anchor="ra")
     dr.text((x + 216, y + 44), "in the draft text",
             font=load_font("sans", 10), fill=GRAY)
     dr.text((x, y + h + 4), "Third draft promised Saturday morning",
@@ -339,27 +373,59 @@ def art_cop(dr, x, y):
 
 
 def art_trump(dr, x, y):
-    """A podium with two flags: the post-trip news conference."""
+    """A podium with two flags: the post-trip news conference.
+
+    US flag left, China flag right (the Beijing trip), a speaker
+    silhouette behind a wood podium with a gold seal, gooseneck
+    microphones leaning over the top.
+    """
     w, h = 312, 62
+    # hall backdrop: deep blue with curtain folds
     dr.rectangle([x, y, x + w, y + h], fill=BLUE)
+    for fx in range(x + 8, x + w, 26):
+        dr.line([(fx, y), (fx, y + h)], fill=(26, 66, 104), width=3)
     # pale backdrop panel behind the podium
-    dr.rectangle([x + 84, y + 4, x + 228, y + h], fill=(233, 226, 208))
-    # flags flanking the backdrop, poles down to the podium top
-    for fx, cols in ((x + 30, (RED, PANEL)), (x + 254, (RED, GOLD))):
-        dr.line([(fx, y + 8), (fx, y + 44)], fill=(247, 243, 232), width=2)
-        dr.rectangle([fx, y + 8, fx + 28, y + 22], fill=cols[0],
-                     outline=(247, 243, 232))
-        dr.rectangle([fx, y + 8, fx + 28, y + 13], fill=cols[1])
-    # podium: wide, from mid-panel to the bottom edge
-    dr.polygon([(x + 108, y + 30), (x + 204, y + 30), (x + 212, y + h),
-                (x + 100, y + h)], fill=DARK, outline=INK)
-    dr.ellipse([x + 144, y + 38, x + 168, y + 58], fill=GOLD, outline=INK)
-    dr.text((x + 156, y + 43), "\u2605", font=load_font("sans_b", 11),
+    dr.rectangle([x + 84, y + 4, x + 228, y + h], fill=(233, 226, 208),
+                 outline=GOLD, width=1)
+    # US flag, left: stripes + blue canton
+    fx = x + 16
+    dr.line([(fx, y + 6), (fx, y + 46)], fill=(247, 243, 232), width=2)
+    dr.rectangle([fx + 2, y + 6, fx + 36, y + 26], fill=(247, 243, 232))
+    for s in (0, 2):
+        dr.rectangle([fx + 2, y + 6 + s * 5, fx + 36, y + 10 + s * 5],
+                     fill=RED)
+    dr.rectangle([fx + 2, y + 6, fx + 16, y + 16], fill=(31, 58, 120))
+    for sx, sy in ((fx + 6, y + 9), (fx + 12, y + 9), (fx + 9, y + 13)):
+        dr.point((sx, sy), fill=(247, 243, 232))
+    # China flag, right: red field, one big star + four small stars
+    fx = x + 260
+    dr.line([(fx, y + 6), (fx, y + 46)], fill=(247, 243, 232), width=2)
+    dr.rectangle([fx + 2, y + 6, fx + 36, y + 26], fill=(222, 41, 16))
+    star(dr, fx + 10, y + 13, 4, GOLD)
+    for sx, sy in ((fx + 19, y + 9), (fx + 23, y + 13), (fx + 21, y + 18),
+                   (fx + 16, y + 19)):
+        star(dr, sx, sy, 2, GOLD)
+    # speaker silhouette: head and shoulders above the podium
+    dr.ellipse([x + 142, y + 2, x + 170, y + 26], fill=(28, 28, 34))
+    dr.polygon([(x + 128, y + 34), (x + 156, y + 24), (x + 184, y + 34),
+                (x + 184, y + 40), (x + 128, y + 40)], fill=(28, 28, 34))
+    # podium: wood front with panel lines, gold trim, floor shadow
+    dr.rectangle([x + 96, y + 58, x + 216, y + h], fill=(10, 10, 14))
+    dr.polygon([(x + 106, y + 30), (x + 206, y + 30), (x + 214, y + h),
+                (x + 98, y + h)], fill=(42, 30, 22), outline=INK)
+    for vx in (x + 130, x + 156, x + 182):
+        dr.line([(vx, y + 32), (vx - 2, y + h)], fill=(24, 16, 10),
+                width=1)
+    dr.line([(x + 106, y + 30), (x + 206, y + 30)], fill=GOLD, width=2)
+    # gold seal with a star
+    dr.ellipse([x + 144, y + 38, x + 168, y + 60], fill=GOLD,
+               outline=(247, 243, 232), width=1)
+    dr.text((x + 156, y + 45), "\u2605", font=load_font("sans_b", 11),
             fill=INK, anchor="mm")
-    # microphones leaning over the podium
-    for mx in (x + 128, x + 184):
-        dr.line([(mx, y + 30), (mx - 5, y + 18)], fill=INK, width=2)
-        dr.ellipse([mx - 10, y + 12, mx, y + 20], fill=INK)
+    # gooseneck microphones leaning over the podium top
+    for mx, dx in ((x + 128, -6), (x + 184, 6)):
+        dr.line([(mx, y + 30), (mx + dx, y + 16)], fill=INK, width=2)
+        dr.ellipse([mx + dx - 5, y + 10, mx + dx + 5, y + 20], fill=INK)
     dr.text((x, y + h + 4), "Beijing trip ends \u2022 'a friend of mine'",
             font=load_font("sans", 10), fill=GRAY)
 
@@ -382,7 +448,7 @@ def render(out_path):
 
     # faint paper grain (seeded: identical every run), under everything
     grain = random.Random(SEED + 7)
-    for _ in range(6000):
+    for _ in range(9000):
         gx = grain.randint(0, W - 1)
         gy = grain.randint(96, H - 1)
         dr.point((gx, gy), fill=(238, 233, 220))
@@ -402,6 +468,12 @@ def render(out_path):
     dr.text((927, 32), "SAT 21 NOV 2026", font=load_font("sans_b", 11),
             fill=(247, 243, 232), anchor="ma")
     dr.rectangle([0, 92, W, 94], fill=GOLD)
+    # small gold globe at the masthead's left, balancing DATE CHECK
+    dr.ellipse([30, 26, 66, 62], outline=GOLD, width=2)
+    dr.ellipse([38, 34, 50, 44], fill=GOLD)
+    dr.ellipse([50, 48, 60, 58], fill=GOLD)
+    dr.arc([30, 26, 66, 62], 200, 340, fill=GOLD, width=1)
+    dr.ellipse([40, 26, 56, 62], outline=GOLD, width=1)
 
     # ---------- three leads ----------
     colx = [28, 356, 684]
@@ -422,7 +494,7 @@ def render(out_path):
                  width=1)
     # stippled ocean (seeded: identical every run), drawn before land
     rng = random.Random(SEED)
-    for _ in range(700):
+    for _ in range(1200):
         dx = MX + rng.randint(3, MW - 3)
         dy = MY + rng.randint(3, MH - 3)
         dr.ellipse([dx, dy, dx + 1, dy + 1], fill=MAPLINE)
@@ -436,6 +508,29 @@ def render(out_path):
     for poly in LAND:
         pts = [project(lon, lat) for lon, lat in poly]
         dr.polygon(pts, fill=LANDC, outline=LANDLINE)
+    # land texture: seeded darker speckles on the continents only
+    land_polys = [[project(lon, lat) for lon, lat in poly]
+                  for poly in LAND]
+
+    def _inside(px, py, poly):
+        n = len(poly)
+        j = n - 1
+        c = False
+        for i in range(n):
+            xi, yi = poly[i]
+            xj, yj = poly[j]
+            if ((yi > py) != (yj > py)) and \
+                    (px < (xj - xi) * (py - yi) / (yj - yi) + xi):
+                c = not c
+            j = i
+        return c
+
+    speck = random.Random(SEED + 23)
+    for _ in range(500):
+        sx = MX + speck.randint(3, MW - 3)
+        sy = MY + speck.randint(3, MH - 3)
+        if any(_inside(sx, sy, p) for p in land_polys):
+            dr.point((sx, sy), fill=(200, 193, 170))
     # ocean labels in open water
     dr.text((MX + 52, MY + 74), "ATLANTIC OCEAN",
             font=load_font("sans_b", 9), fill=MAPLINE)
@@ -476,6 +571,26 @@ def render(out_path):
         dr.text((x + 10, 566), num, font=load_font("serif_b", 20),
                 fill=INK)
         dr.text((x + 10, 588), lab, font=load_font("sans", 10), fill=GRAY)
+        # tiny chart at the right of each box
+        gx0, gy0 = x + 184, 570
+        if i == 0:  # quake: mini seismograph zigzag
+            zr = random.Random(SEED + 31)
+            zpts = [(gx0 + k * 4, gy0 + 8 + zr.uniform(-7, 7))
+                    for k in range(10)]
+            dr.line(zpts, fill=RED, width=1)
+        elif i == 1:  # displaced: three rising bars
+            for b, bh in enumerate((6, 10, 15)):
+                dr.rectangle([gx0 + b * 12, gy0 + 16 - bh,
+                              gx0 + b * 12 + 8, gy0 + 16], fill=STEEL)
+        elif i == 2:  # inflow: rising line with arrowhead
+            dr.line([(gx0, gy0 + 14), (gx0 + 36, gy0 + 2)], fill=STEEL,
+                    width=2)
+            dr.polygon([(gx0 + 36, gy0 + 2), (gx0 + 29, gy0 + 2),
+                        (gx0 + 36, gy0 + 9)], fill=STEEL)
+        else:  # zero: flat line with a red dot on it
+            dr.line([(gx0, gy0 + 8), (gx0 + 36, gy0 + 8)], fill=GRAY,
+                    width=2)
+            dr.ellipse([gx0 + 16, gy0 + 4, gx0 + 24, gy0 + 12], fill=RED)
 
     # ---------- seven regions ----------
     tag(dr, 28, 614, "SEVEN REGIONS \u2014 ONE TOP STORY FROM EACH", 13)
