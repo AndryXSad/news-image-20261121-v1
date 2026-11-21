@@ -85,9 +85,48 @@ roughly 95–97%, plausibly in the top few thousand, but NOT plausibly
 clearing the 98.4018% top-50 bar. It remains a long shot; the
 coordinator decides whether the slot is worth spending.
 
+## Kit check (21 Nov 2026 ~10:50 WIB)
+
+Ran the competition's own kit
+(`/tmp/kit21/news-image-20261121-kit/cli/makefun.mjs check --kit ...
+--repo . --commit HEAD`): 3 passed, 2 failed, 14 skipped, 5
+checked at submission. Passes: competition_open, snapshot,
+entrypoint (main.py → Python 3.13). Fails:
+
+- **license_osi** — the kit wants an `SPDX-License-Identifier:` line
+  in the root LICENSE. The LICENSE was deliberately written the
+  canonical way (starting "MIT License", no SPDX line on top) because
+  an SPDX line on top made GitHub's license API return NOASSERTION
+  on the 20 Nov v3 repo; `gh api .../license` on this repo returns
+  `{"license": "MIT"}`. The SPDX line was NOT added: the build brief
+  forbids it above the text, and the kit's own fix text concedes
+  GitHub may still detect the license from its text for a repository
+  entry. If a future submit is attempted, the coordinator must decide
+  whether to try the SPDX line at the END of the file (text still
+  starts "MIT License") and re-verify both `gh api .../license` and
+  the kit check — or submit as-is and let the site decide.
+- **transcripts_present** — expected before submission: no bundle
+  exists yet. Transcripts are bundled at submit time by the
+  coordinator (this builder's session id is
+  86c39386-12d4-4d63-a5b5-c40abf5190ef); re-run check with
+  `--transcripts <bundle>` then. All thinking_* checks are skipped
+  until transcripts exist, so no thinking_reproduces figure is
+  available locally.
+
+At-submission items: repo is public, created 21 Nov ~03:31 UTC
+(after the 00:00 UTC opening), commit 52020d3 is pushed, files are
+fresh work (no duplicate snapshot). Repo owner is AndryXSad, the
+same GitHub login used for the accepted 20 Nov submissions.
+
 ## Submission status
 
-NOT SUBMITTED (pending coordinator decision). Quota verified 21 Nov
-10:21 WIB: can_submit=true, day cap 3/3 remaining. Do NOT use
-`makefun record` — news-image competitions reject recorded
-transcripts (HTTP 400); submit via bundle/loose-files only.
+NOT SUBMITTED — **NO-GO, coordinator's call**. Quota verified 21 Nov
+10:21 WIB: can_submit=true, day cap 3/3 remaining. Honest estimate
+95–97% vs the live top-50 bar of 98.4018% (rank 50, ~10:25 WIB);
+the gap is ~1.4–3.4 points in a scale where this layout family has
+scored 94.24% (20 Nov v1/v2) and 96.02% (19 Nov v3). Spending one of
+the 3 remaining day slots on this entry is unlikely to reach the
+prize zone. The slot is better kept for a materially richer rebuild
+or a later edition. Do NOT use `makefun record` — news-image
+competitions reject recorded transcripts (HTTP 400); submit via
+bundle/loose-files only.
