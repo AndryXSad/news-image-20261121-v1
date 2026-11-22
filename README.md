@@ -7,7 +7,7 @@
 One front page that sums up Saturday 21 November 2026 in a single image:
 45 verified stories — three leads (the M6.8 Peru quake at 00:09 UTC,
 COP31 running into overtime with a draft silent on fossil fuels, and
-Trump's post-trip news conference), a world map with eight numbered
+Iran's night strikes on US bases in Bahrain), a world map with eight numbered
 places, a UTC timeline of five moments, a day-in-figures strip, one
 top story from each of seven regions, a twenty-four-item grid with no
 repeated dateline, and an "Also today" ticker. Every story was checked

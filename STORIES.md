@@ -17,11 +17,16 @@ counted below; they add times and numbers, not new stories.
    Panama threatens to block a weak deal; the EU warns of a
    "fossil summit". Sources: AFP/The News PK, Asia Today, Health
    Policy Watch, 21 Nov.
-3. **Trump: Putin "a friend of mine"; no rush on Iran** — After the
-   Beijing trip, Trump tells his post-trip news conference he is in
-   no rush on Iran strikes, with a decision delayed until at least
-   next year; media aboard the presidential plane were told to hand
-   in phones as he left Beijing. Source: BBC, 21 Nov.
+3. **Iran hits US bases in Bahrain; Gulf on edge** — Late on
+   Saturday the IRGC says its aerospace force hit two US Patriot
+   radars at the Al-Riffa and Awali Sakhir air bases with missiles
+   and drones, as retaliation for US drone incursions; Bahrain says
+   a civilian industrial facility was hit and burned, air defences
+   intercepted other attacks, and nobody was hurt. The two
+   accounts disagree on what was damaged; both are reported as
+   claims. Sources: Xinhua, Reuters, Bahrain MOI/Defence Force,
+   21 Nov. (Fix 2, 22 Nov: this replaced the Trump post-trip lead;
+   Trump survives as a grid item.)
 
 ## The world — eight places (8)
 
@@ -31,23 +36,23 @@ counted below; they add times and numbers, not new stories.
 4. TALLINN — Estonia to close border crossings with Russia from
    1 December.
 5. GAZA — 22,000 Palestinian children dead, the ministry says.
-6. MUKALLA — UKMTO reports a maritime incident south-west of
-   Mukalla, Yemen.
+6. BAHRAIN — Iran hits US bases; factory fire, no dead.
 7. NEW DELHI — Record ₹1.22 lakh crore foreign inflow into Indian
    shares, 2–20 Nov.
 8. WELLINGTON — KL Rahul completes the SENA set.
 
 ## Seven regions — one top story from each (7)
 
-- NORTH AMERICA — Army cleared to blast 9,500 lbs of unstable lead
-  azide in Iowa. Sources: 21 Nov newswires.
+- NORTH AMERICA — Mexico captures "El Chapo Isidro", one of the
+  FBI's 10 most wanted, in a Sinaloa raid; 4 soldiers and 7 gunmen
+  killed. Sources: Reuters, CNN, WSJ, 21 Nov.
 - SOUTH AMERICA — Peru: Congress evacuated in the quake.
   Sources: Reuters, AFP, 21 Nov.
 - EUROPE — Hungary lifts its block on opening EU accession-talk
   clusters 4 and 5 with Ukraine. Sources: 21 Nov newswires.
 - AFRICA — Ebola in eastern Congo: about 100 schools affected. Sources: 21 Nov newswires.
-- MIDDLE EAST — Saudi-led coalition downs Houthi missiles.
-  Sources: 21 Nov newswires.
+- MIDDLE EAST — Iran strikes US bases in Bahrain (see Leads).
+  Sources: Xinhua, Reuters, 21 Nov.
 - ASIA — Record cash floods Indian shares (₹1.22 lakh
   crore, 2–20 Nov). Source: The Daily Short / depository data,
   21 Nov.
@@ -67,12 +72,15 @@ counted below; they add times and numbers, not new stories.
 5. IOWA — Army cleared to blast unstable lead azide (see Regions).
 6. CALIFORNIA — State subpoenas Nvidia over alleged China chip
    sales. Sources: 21 Nov newswires.
-7. WASHINGTON — US declassifies more UFO footage filmed in the
-   Middle East. Source: BBC, 21 Nov.
-8. WHITE HOUSE — Trump: Nvidia chief Jensen Huang deserves "one
-   more second chance". Sources: 21 Nov newswires.
-9. TEHRAN — US and Israel weigh a fresh strike on Iran, sources
-   say. Sources: 21 Nov newswires.
+7. LAS VEGAS — Antonelli fastest in qualifying (1:33.893) but a
+   five-place grid penalty hands pole to Verstappen. Sources:
+   formula1.com, FIA, 21 Nov.
+8. WASHINGTON — Trump calls Putin "a friend"; Zelensky replies
+   "for us, he is an enemy... for us, he's a killer". Sources: CNN,
+   TBS, 21 Nov (the CNN interview was given Friday and first
+   reported Saturday).
+9. RIYADH — Saudi-led coalition downs three Houthi ballistic
+   missiles fired towards Riyadh. Source: Reuters, 21 Nov.
 10. YEMEN — UN: displaced in Yemen up to about 357,000 since last
     August. Sources: 21 Nov newswires.
 11. WEST BANK — Palestinian shot dead by a settler guard.
@@ -108,10 +116,10 @@ counted below; they add times and numbers, not new stories.
 
 ## Also today (ticker, 3)
 
-- England host New Zealand at Twickenham on Saturday. Source: EIN
-  Presswire, 21 Nov.
-- Wales build on their All Blacks win against Australia. Source:
-  EIN Presswire, 21 Nov.
+- England rout New Zealand 37–12 at Twickenham, a record margin,
+  five tries. Sources: Reuters, AP, 21 Nov.
+- Verstappen on pole in Las Vegas as Antonelli takes a five-place
+  grid penalty. Sources: formula1.com, FIA, 21 Nov.
 - L7 announce their final Australia–New Zealand tour. Source: EIN
   Presswire, 21 Nov.
 
@@ -121,14 +129,15 @@ counted below; they add times and numbers, not new stories.
 - 357,000 — people displaced in Yemen since August (UN).
 - ₹1.22 lakh cr — record foreign inflow into Indian shares.
 - 0 — mentions of fossil fuels in the COP31 draft.
+- 11 — killed in the Sinaloa raid: 4 soldiers, 7 gunmen.
 
 ## The day in UTC (recap with clock times)
 
 - 00:09 UTC — M6.8 quake strikes central Peru.
 - 02:34 UTC — BBC: RAF-base villagers to vote on "leaving UK".
-- MORNING — COP31 presidency promises a third draft text.
-- AFTERNOON — KL Rahul completes the SENA set in Wellington.
-- EVENING — Trump: no rush on Iran strikes; decision delayed.
+- MORNING — Mexico captures "El Chapo Isidro".
+- AFTERNOON — COP31 presidency promises a third draft text.
+- EVENING — Iran strikes US bases in Bahrain.
 
 ## Deliberately NOT used (wrong date, or unverified)
 
@@ -148,6 +157,11 @@ counted below; they add times and numbers, not new stories.
   reactions, e.g. Switzerland, are used).
 - South Korea's first cholera case in a decade — reported 20 Nov.
 - F1 Las Vegas qualifying and the England–New Zealand rugby match —
-  both scheduled for later on Saturday 21 Nov, after this edition
-  was built; results were not yet known, so only the Twickenham
-  fixture is carried in the ticker.
+  results now known and used (fix 2): Antonelli fastest, Verstappen
+  on pole; England 37–12 New Zealand, a record win.
+- Dropped in fix 2 for fresher stories of the same day: the Mukalla
+  maritime incident (map), the US UFO-footage declassification, the
+  "Nvidia chief deserves a second chance" line, and the US/Israel
+  weigh-a-strike-on-Iran report — all 21 Nov but overtaken or
+  weaker than the Bahrain strikes, the El Chapo capture, the Riyadh
+  intercept and the Zelensky reply that replaced them.

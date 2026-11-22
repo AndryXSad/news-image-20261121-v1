@@ -4,13 +4,21 @@
 A newspaper front page drawn from scratch with PIL and DejaVu fonts:
 a dark masthead with a DATE CHECK box, three illustrated leads (the
 M6.8 Peru quake at 00:09 UTC, COP31 running into overtime with a
-draft silent on fossil fuels, and Trump's post-trip news conference),
-a dark world map with eight numbered pins, a UTC timeline of five
-moments, a day-in-figures strip, one top story from each of seven
-regions, a twenty-four-item grid with no repeated dateline, and an
-"Also today" ticker. 45 stories in all; every one was checked
-against reporting dated Saturday 21 November 2026 before it was
-drawn (see STORIES.md).
+draft silent on fossil fuels, and Iran's night strikes on US bases
+in Bahrain), a dark world map with eight numbered pins, a UTC
+timeline of five moments, a day-in-figures strip, one top story
+from each of seven regions, a twenty-four-item grid with no
+repeated dateline, and an "Also today" ticker. 45 stories in all;
+every one was checked against reporting dated Saturday
+21 November 2026 before it was drawn (see STORIES.md).
+
+Fix 2 (22 Nov 2026): the third lead is now the Bahrain night
+strikes, with the El Chapo capture, the Riyadh intercept and
+Zelensky's "killer" reply woven into the regions, grid, timeline
+and ticker; the lead art is taller (76 px) and richer, the
+figures strip has five boxes, and the map carries more stipple
+and a compass rose. The Trump podium art was retired with the
+lead it illustrated; Trump survives as a grid item.
 
 Deterministic output: no timestamps, no unseeded randomness, fixed
 font paths, fixed story order. The same run always produces the same
@@ -124,12 +132,12 @@ LEADS = [
      "Saturday morning; Panama threatens to block a weak deal.",
      "AFP, Asia Today  \u2022  21 Nov",
      "cop"),
-    ("LEAD  \u2022  USA",
-     "Trump: Putin \u2018a friend of mine\u2019; no rush on Iran",
-     "After the Beijing trip, Trump says an Iran-strike decision "
-     "waits until next year; press told to hand in phones.",
-     "BBC  \u2022  21 Nov",
-     "trump"),
+    ("LEAD  \u2022  MIDDLE EAST",
+     "Iran hits US bases in Bahrain; Gulf on edge",
+     "IRGC says missiles and drones hit two Patriot radars; "
+     "Bahrain reports a factory fire, no casualties.",
+     "Reuters, Xinhua  \u2022  21 Nov",
+     "bahrain"),
 ]
 
 # Simplified continent outlines (lon, lat), hand-approximated afresh.
@@ -216,33 +224,34 @@ LAND = [N_AMERICA, S_AMERICA, AFRICA, EUROPE, ASIA, BRITAIN, JAPAN,
 # pin 8 (Wellington) sat on the New Zealand coastline.
 PINS = [("1", -76.2, -11.0, 0, 0), ("2", 30.7, 36.9, 18, 2),
         ("3", -77.0, 38.9, 0, 0), ("4", 24.7, 59.4, -10, 4),
-        ("5", 34.5, 31.5, -8, 6), ("6", 49.1, 14.5, -10, 4),
+        ("5", 34.5, 31.5, -8, 6), ("6", 50.6, 26.2, 10, 0),
         ("7", 77.2, 28.6, 0, 0), ("8", 174.8, -41.3, 0, -2)]
 KEY = ["1  JUN\u00cdN \u2014 M6.8 quake; Lima shaken; no deaths",
        "2  ANTALYA \u2014 COP31 overtime; fossil-fuel row",
        "3  WASHINGTON \u2014 Trump delays Iran-strike decision",
        "4  TALLINN \u2014 Estonia to shut Russia border crossings",
        "5  GAZA \u2014 22,000 Palestinian children dead, ministry says",
-       "6  MUKALLA \u2014 UKMTO reports incident off Yemen",
+       "6  BAHRAIN \u2014 Iran hits US bases; factory fire, no dead",
        "7  NEW DELHI \u2014 Record \u20b91.22 lakh crore foreign inflow",
        "8  WELLINGTON \u2014 KL Rahul completes the SENA set"]
 
 TIMES = [("00:09 UTC", "M6.8 quake strikes central Peru"),
          ("02:34 UTC", "BBC: RAF-base villagers to vote on 'leaving UK'"),
-         ("MORNING", "COP31 presidency promises a third draft text"),
-         ("AFTERNOON", "KL Rahul completes the SENA set in Wellington"),
-         ("EVENING", "Trump: no rush on Iran strikes; decision delayed")]
+         ("MORNING", "Mexico captures 'El Chapo Isidro'"),
+         ("AFTERNOON", "COP31 presidency promises a third draft text"),
+         ("EVENING", "Iran strikes US bases in Bahrain")]
 
-FIGS = [("6.8", "magnitude of the Peru quake, 00:09 UTC"),
-        ("357,000", "people displaced in Yemen since August"),
-        ("\u20b91.22 lakh cr", "record foreign inflow into Indian shares"),
-        ("0", "mentions of fossil fuels in the COP31 draft")]
+FIGS = [("6.8", "magnitude of the Peru quake"),
+        ("357,000", "displaced in Yemen since August"),
+        ("\u20b91.22 lakh cr", "record inflow into Indian shares"),
+        ("0", "fossil fuels named in COP31 draft"),
+        ("11", "killed in the Sinaloa raid")]
 
-REGIONS = [("NORTH AMERICA", "Army cleared to blast Iowa explosives"),
+REGIONS = [("NORTH AMERICA", "Mexico captures 'El Chapo Isidro'"),
            ("SOUTH AMERICA", "Peru: Congress evacuated in quake"),
            ("EUROPE", "Hungary lifts block on Ukraine EU talks"),
            ("AFRICA", "Ebola hits ~100 schools in Congo"),
-           ("MIDDLE EAST", "Saudi-led force downs Houthi missiles"),
+           ("MIDDLE EAST", "Iran strikes US bases in Bahrain"),
            ("ASIA", "Record cash floods Indian shares"),
            ("OCEANIA", "Cyclone Xavier fades over Cook Islands")]
 
@@ -252,9 +261,9 @@ GRID = [("KYIV", "Ukraine hits three Russian missile launchers"),
         ("LONDON", "Villagers to vote on 'leaving UK' over RAF base"),
         ("IOWA", "Army cleared to blast unstable lead azide"),
         ("CALIFORNIA", "State subpoenas Nvidia over China chip sales"),
-        ("WASHINGTON", "US declassifies more UFO footage"),
-        ("WHITE HOUSE", "Trump: Nvidia chief deserves 'second chance'"),
-        ("TEHRAN", "US and Israel weigh fresh strike on Iran"),
+        ("LAS VEGAS", "Antonelli fastest, but Verstappen takes pole"),
+        ("WASHINGTON", "Trump: Putin 'a friend'; Zelensky: 'he's a killer'"),
+        ("RIYADH", "Saudi force downs three Houthi missiles"),
         ("YEMEN", "UN: displaced in Yemen up to 357,000"),
         ("WEST BANK", "Palestinian shot dead by settler guard"),
         ("HAITI", "Two Salvadorans killed handling explosives"),
@@ -271,29 +280,30 @@ GRID = [("KYIV", "Ukraine hits three Russian missile launchers"),
         ("TREASURY", "Bessent: humans must steer military AI"),
         ("BEIJING", "Xi displays clout after hosting Trump, Putin")]
 
-TICKER = ("England host New Zealand at Twickenham  \u2022  Wales build "
-          "on All Blacks win vs Australia  \u2022  L7 announce final "
-          "Australia\u2013NZ tour")
+TICKER = ("England rout New Zealand 37\u201312 at Twickenham  \u2022  "
+          "Verstappen on pole in Vegas as Antonelli takes penalty  "
+          "\u2022  L7 announce final Australia\u2013NZ tour")
 
 # ---------------- illustrations ----------------
 def art_quake(dr, x, y):
-    """Seismograph trace: quiet line, then a violent spike, then calm."""
-    w, h = 312, 62
+    """Seismograph trace: quiet line, then a violent spike, then calm,
+    over a cracked street with a shaken skyline at the foot."""
+    w, h = 312, 76
     dr.rectangle([x, y, x + w, y + h], fill=SLATE)
     # graticule: vertical time divisions + faint horizontals
     for gx in range(x + 28, x + w, 28):
-        dr.line([(gx, y + 4), (gx, y + h - 4)], fill=SKY, width=1)
-    for gy in (y + 16, y + 31, y + 46):
+        dr.line([(gx, y + 4), (gx, y + 58)], fill=SKY, width=1)
+    for gy in (y + 14, y + 30, y + 46):
         dr.line([(x + 6, gy), (x + w - 6, gy)], fill=SKY, width=1)
     rng = random.Random(SEED + 11)
-    mid = y + h // 2
+    mid = y + 30
     pts = []
     for i in range(0, w - 4, 3):
         px = x + 4 + i
         if i < 120:
             amp = rng.uniform(-2.5, 2.5)
         elif i < 200:
-            amp = rng.uniform(-26, 26)
+            amp = rng.uniform(-22, 22)
         else:
             amp = rng.uniform(-4, 4)
         pts.append((px, mid + amp))
@@ -301,16 +311,34 @@ def art_quake(dr, x, y):
     dr.line(pts, fill=(96, 118, 150), width=5)
     dr.line(pts, fill=(247, 243, 232), width=2)
     # red ring + dot at the biggest jolt
-    dr.ellipse([x + 148, mid - 28, x + 164, mid - 12], outline=RED,
+    dr.ellipse([x + 148, mid - 26, x + 164, mid - 10], outline=RED,
                width=2)
-    dr.ellipse([x + 152, mid - 24, x + 160, mid - 16], fill=RED)
+    dr.ellipse([x + 152, mid - 22, x + 160, mid - 14], fill=RED)
     dr.text((x + 8, y + 5), "M6.8", font=load_font("sans_b", 16),
             fill=(247, 243, 232))
     # depth label right-aligned inside the box (was clipped at the edge)
     dr.text((x + w - 8, y + 5), "DEPTH 129 KM",
             font=load_font("sans_b", 11), fill=GOLD, anchor="ra")
-    dr.text((x, y + h + 4), "00:09 UTC \u2022 30 km NW of Jun\u00edn",
-            font=load_font("sans", 10), fill=GRAY)
+    # cracked street at the foot: dark band, a jagged crack, and a
+    # small skyline — one tower leaning — with lit windows
+    dr.rectangle([x, y + 62, x + w, y + h], fill=(10, 14, 24))
+    crack = [(x + 4, y + 62), (x + 60, y + 64), (x + 110, y + 62),
+             (x + 160, y + 65), (x + 210, y + 62), (x + 260, y + 64),
+             (x + w - 4, y + 62)]
+    dr.line(crack, fill=(120, 130, 150), width=1)
+    for bx, bw, bt in ((x + 14, 26, y + 48), (x + 252, 28, y + 50),
+                       (x + 284, 18, y + 56)):
+        dr.rectangle([bx, bt, bx + bw, y + 62], fill=(24, 32, 48),
+                     outline=(70, 82, 104))
+        for wy in (bt + 4, bt + 9):
+            for wx in (bx + 4, bx + bw - 6):
+                dr.rectangle([wx, wy, wx + 2, wy + 2], fill=GOLD)
+    # one tower leaning over the crack
+    dr.polygon([(x + 44, y + 62), (x + 48, y + 44), (x + 62, y + 48),
+                (x + 58, y + 62)], fill=(24, 32, 48),
+               outline=(70, 82, 104))
+    dr.rectangle([x + 50, y + 50, x + 52, y + 52], fill=GOLD)
+    dr.rectangle([x + 53, y + 55, x + 55, y + 57], fill=GOLD)
 
 
 def star(dr, cx, cy, r, fill):
@@ -324,113 +352,136 @@ def star(dr, cx, cy, r, fill):
 
 
 def art_cop(dr, x, y):
-    """A warming globe: blue circle, land blobs, a rising thermometer."""
-    w, h = 312, 62
+    """A warming globe: blue circle, land blobs, a rising thermometer
+    with its mercury past the 1.5 C mark."""
+    w, h = 312, 76
     # two-tone sky: pale top band, deeper below
-    dr.rectangle([x, y, x + w, y + 30], fill=(226, 238, 244))
-    dr.rectangle([x, y + 30, x + w, y + h], fill=SEA)
-    cx, cy = x + 62, y + 31
+    dr.rectangle([x, y, x + w, y + 36], fill=(226, 238, 244))
+    dr.rectangle([x, y + 36, x + w, y + h], fill=SEA)
+    cx, cy = x + 62, y + 38
     # soft shadow under the globe
-    dr.ellipse([cx - 30, cy + 24, cx + 30, cy + 32], fill=(190, 208, 220))
-    dr.ellipse([cx - 28, cy - 28, cx + 28, cy + 28], fill=STEEL,
+    dr.ellipse([cx - 32, cy + 26, cx + 32, cy + 34], fill=(190, 208, 220))
+    dr.ellipse([cx - 30, cy - 30, cx + 30, cy + 30], fill=STEEL,
                outline=INK, width=2)
     # land blobs on the globe
-    dr.ellipse([cx - 20, cy - 16, cx - 2, cy - 2], fill=LANDC)
-    dr.ellipse([cx + 2, cy + 2, cx + 18, cy + 18], fill=LANDC)
-    dr.ellipse([cx - 6, cy + 8, cx + 8, cy + 20], fill=LANDC)
+    dr.ellipse([cx - 21, cy - 17, cx - 2, cy - 2], fill=LANDC)
+    dr.ellipse([cx + 2, cy + 2, cx + 19, cy + 19], fill=LANDC)
+    dr.ellipse([cx - 6, cy + 8, cx + 8, cy + 21], fill=LANDC)
     # graticule arcs + highlight on the upper-left limb
-    dr.arc([cx - 28, cy - 28, cx + 28, cy + 28], 200, 340, fill=MAPLINE,
+    dr.arc([cx - 30, cy - 30, cx + 30, cy + 30], 200, 340, fill=MAPLINE,
            width=1)
-    dr.ellipse([cx - 12, cy - 28, cx + 12, cy + 28], outline=MAPLINE)
-    dr.arc([cx - 28, cy - 28, cx + 28, cy + 28], 150, 260,
+    dr.ellipse([cx - 13, cy - 30, cx + 13, cy + 30], outline=MAPLINE)
+    dr.arc([cx - 30, cy - 30, cx + 30, cy + 30], 150, 260,
            fill=(220, 235, 245), width=2)
     # two thin cloud swirls
-    dr.arc([cx - 18, cy - 10, cx + 2, cy + 4], 200, 340,
+    dr.arc([cx - 19, cy - 11, cx + 2, cy + 4], 200, 340,
            fill=(247, 247, 247), width=2)
-    dr.arc([cx - 4, cy + 6, cx + 16, cy + 18], 20, 160,
+    dr.arc([cx - 4, cy + 6, cx + 17, cy + 19], 20, 160,
            fill=(247, 247, 247), width=2)
-    # thermometer, mercury climbing, with tick marks
+    # thermometer, mercury climbing past the 1.5 C mark, tick marks
     tx = x + 148
-    dr.rectangle([tx, y + 6, tx + 12, y + 50], fill=PANEL, outline=INK,
+    dr.rectangle([tx, y + 8, tx + 12, y + 58], fill=PANEL, outline=INK,
                  width=1)
-    dr.rectangle([tx + 2, y + 22, tx + 10, y + 48], fill=RED)
-    dr.ellipse([tx - 3, y + 44, tx + 15, y + 60], fill=RED, outline=INK)
-    for ty in (y + 12, y + 22, y + 32, y + 42):
+    dr.rectangle([tx + 2, y + 14, tx + 10, y + 56], fill=RED)
+    dr.ellipse([tx - 3, y + 52, tx + 15, y + 70], fill=RED, outline=INK)
+    for ty in (y + 14, y + 26, y + 38, y + 50):
         dr.line([(tx - 3, ty), (tx, ty)], fill=INK, width=1)
-    for ty, lab in ((y + 6, "1.5\u00b0C"), (y + 24, "1.0\u00b0C"),
-                    (y + 42, "0.5\u00b0C")):
+    for ty, lab in ((y + 8, "1.5\u00b0C"), (y + 28, "1.0\u00b0C"),
+                    (y + 48, "0.5\u00b0C")):
         dr.text((tx + 18, ty), lab, font=load_font("sans", 9), fill=INK)
     # the zero that matters: no fossil fuels named (right-aligned:
     # the old "NAMED: 0" ran past the panel's right edge)
-    dr.text((x + 216, y + 6), "FOSSIL FUELS", font=load_font("sans_b", 11),
+    dr.text((x + 216, y + 8), "FOSSIL FUELS", font=load_font("sans_b", 11),
             fill=INK)
-    dr.text((x + w - 8, y + 22), "NAMED: 0", font=load_font("sans_b", 17),
+    dr.text((x + w - 8, y + 26), "NAMED: 0", font=load_font("sans_b", 17),
             fill=RED, anchor="ra")
-    dr.text((x + 216, y + 44), "in the draft text",
-            font=load_font("sans", 10), fill=GRAY)
-    dr.text((x, y + h + 4), "Third draft promised Saturday morning",
+    dr.text((x + 216, y + 50), "in the draft text",
             font=load_font("sans", 10), fill=GRAY)
 
 
-def art_trump(dr, x, y):
-    """A podium with two flags: the post-trip news conference.
+def art_bahrain(dr, x, y):
+    """Missiles over the Gulf at night: a Manama skyline under
+    ascending trails and interceptor bursts, crescent moon above.
 
-    US flag left, China flag right (the Beijing trip), a speaker
-    silhouette behind a wood podium with a gold seal, gooseneck
-    microphones leaning over the top.
-    """
-    w, h = 312, 62
-    # hall backdrop: deep blue with curtain folds
-    dr.rectangle([x, y, x + w, y + h], fill=BLUE)
-    for fx in range(x + 8, x + w, 26):
-        dr.line([(fx, y), (fx, y + h)], fill=(26, 66, 104), width=3)
-    # pale backdrop panel behind the podium
-    dr.rectangle([x + 84, y + 4, x + 228, y + h], fill=(233, 226, 208),
-                 outline=GOLD, width=1)
-    # US flag, left: stripes + blue canton
-    fx = x + 16
-    dr.line([(fx, y + 6), (fx, y + 46)], fill=(247, 243, 232), width=2)
-    dr.rectangle([fx + 2, y + 6, fx + 36, y + 26], fill=(247, 243, 232))
-    for s in (0, 2):
-        dr.rectangle([fx + 2, y + 6 + s * 5, fx + 36, y + 10 + s * 5],
-                     fill=RED)
-    dr.rectangle([fx + 2, y + 6, fx + 16, y + 16], fill=(31, 58, 120))
-    for sx, sy in ((fx + 6, y + 9), (fx + 12, y + 9), (fx + 9, y + 13)):
+    Two accounts of the night are kept apart in the words: the IRGC
+    says it hit two US Patriot radars; Bahrain says a factory
+    burned. The picture shows the attack itself, not the claims."""
+    w, h = 312, 76
+    # night sky: a dark gradient, band by band (deterministic)
+    top, bot = (10, 16, 34), (34, 56, 96)
+    for i in range(h):
+        t = i / (h - 1)
+        col = tuple(int(top[k] + (bot[k] - top[k]) * t) for k in range(3))
+        dr.line([(x, y + i), (x + w, y + i)], fill=col)
+    # stars (seeded) + a crescent moon, top right
+    rng = random.Random(SEED + 41)
+    for _ in range(42):
+        sx = x + rng.randint(4, w - 8)
+        sy = y + rng.randint(3, 44)
+        if sx < x + 132 and sy < y + 18:
+            continue  # keep the top-left label clear of stars
         dr.point((sx, sy), fill=(247, 243, 232))
-    # China flag, right: red field, one big star + four small stars
-    fx = x + 260
-    dr.line([(fx, y + 6), (fx, y + 46)], fill=(247, 243, 232), width=2)
-    dr.rectangle([fx + 2, y + 6, fx + 36, y + 26], fill=(222, 41, 16))
-    star(dr, fx + 10, y + 13, 4, GOLD)
-    for sx, sy in ((fx + 19, y + 9), (fx + 23, y + 13), (fx + 21, y + 18),
-                   (fx + 16, y + 19)):
-        star(dr, sx, sy, 2, GOLD)
-    # speaker silhouette: head and shoulders above the podium
-    dr.ellipse([x + 142, y + 2, x + 170, y + 26], fill=(28, 28, 34))
-    dr.polygon([(x + 128, y + 34), (x + 156, y + 24), (x + 184, y + 34),
-                (x + 184, y + 40), (x + 128, y + 40)], fill=(28, 28, 34))
-    # podium: wood front with panel lines, gold trim, floor shadow
-    dr.rectangle([x + 96, y + 58, x + 216, y + h], fill=(10, 10, 14))
-    dr.polygon([(x + 106, y + 30), (x + 206, y + 30), (x + 214, y + h),
-                (x + 98, y + h)], fill=(42, 30, 22), outline=INK)
-    for vx in (x + 130, x + 156, x + 182):
-        dr.line([(vx, y + 32), (vx - 2, y + h)], fill=(24, 16, 10),
-                width=1)
-    dr.line([(x + 106, y + 30), (x + 206, y + 30)], fill=GOLD, width=2)
-    # gold seal with a star
-    dr.ellipse([x + 144, y + 38, x + 168, y + 60], fill=GOLD,
-               outline=(247, 243, 232), width=1)
-    dr.text((x + 156, y + 45), "\u2605", font=load_font("sans_b", 11),
-            fill=INK, anchor="mm")
-    # gooseneck microphones leaning over the podium top
-    for mx, dx in ((x + 128, -6), (x + 184, 6)):
-        dr.line([(mx, y + 30), (mx + dx, y + 16)], fill=INK, width=2)
-        dr.ellipse([mx + dx - 5, y + 10, mx + dx + 5, y + 20], fill=INK)
-    dr.text((x, y + h + 4), "Beijing trip ends \u2022 'a friend of mine'",
-            font=load_font("sans", 10), fill=GRAY)
+    dr.ellipse([x + 284, y + 4, x + 302, y + 22], fill=(240, 234, 210))
+    dr.ellipse([x + 289, y + 2, x + 305, y + 20], fill=(22, 32, 60))
+    # Manama skyline silhouette along the foot, with lit windows
+    dr.rectangle([x, y + 58, x + w, y + h], fill=(8, 12, 24))
+    sky = [(x + 6, 22), (x + 34, 30), (x + 58, 18), (x + 86, 34),
+           (x + 112, 24), (x + 140, 32), (x + 168, 20), (x + 196, 30),
+           (x + 224, 16), (x + 252, 28), (x + 282, 22)]
+    for bx, bt in sky:
+        dr.rectangle([bx, y + 58 - bt, bx + 22, y + 58], fill=(8, 12, 24),
+                     outline=(52, 66, 96))
+    # twin towers with wind turbines between them (Bahrain WTC)
+    dr.rectangle([x + 224, y + 58 - 16, x + 238, y + 58],
+                 fill=(8, 12, 24), outline=(52, 66, 96))
+    dr.rectangle([x + 244, y + 58 - 16, x + 258, y + 58],
+                 fill=(8, 12, 24), outline=(52, 66, 96))
+    for ty in (y + 44, y + 50):
+        dr.ellipse([x + 238, ty, x + 244, ty + 5], outline=GOLD)
+    # a minaret, left of the towers
+    dr.polygon([(x + 200, y + 58), (x + 203, y + 30), (x + 206, y + 58)],
+               fill=(8, 12, 24), outline=(52, 66, 96))
+    # lit windows, seeded
+    wr = random.Random(SEED + 43)
+    for _ in range(46):
+        wx = x + wr.randint(8, w - 12)
+        wy = y + wr.randint(30, 56)
+        dr.point((wx, wy), fill=GOLD)
+    # sea strip at the very foot, with a small patrol ship
+    dr.rectangle([x, y + 70, x + w, y + h], fill=(16, 32, 56))
+    dr.polygon([(x + 96, y + 70), (x + 128, y + 70), (x + 122, y + 75),
+                (x + 102, y + 75)], fill=(8, 12, 24))
+    dr.line([(x + 112, y + 70), (x + 112, y + 62)], fill=(8, 12, 24),
+            width=2)
+    # two ascending missile trails: a faint glow, then a bright core
+    for p0, p1, p2 in (((x + 92, y + 58), (x + 136, y + 32),
+                        (x + 180, y + 14)),
+                       ((x + 216, y + 58), (x + 232, y + 36),
+                        (x + 248, y + 20))):
+        dr.line([p0, p1, p2], fill=(120, 110, 70), width=5)
+        dr.line([p0, p1, p2], fill=(247, 238, 190), width=2)
+    # interceptor bursts where the trails end: irregular ray bursts
+    # with sparks, not tidy suns
+    for bx, by in ((x + 180, y + 14), (x + 248, y + 20)):
+        dr.ellipse([bx - 9, by - 9, bx + 9, by + 9],
+                   fill=(226, 120, 40))
+        for k, rl in enumerate((15, 11, 16, 10, 14, 12, 15, 11)):
+            ang = k * math.pi / 4 + 0.3
+            ex = bx + rl * math.cos(ang)
+            ey = by + rl * math.sin(ang)
+            dr.line([(bx, by), (ex, ey)], fill=(240, 160, 60), width=2)
+        dr.ellipse([bx - 4, by - 4, bx + 4, by + 4],
+                   fill=(247, 243, 232))
+        sr = random.Random(SEED + 47 + bx)
+        for _ in range(6):
+            sx = bx + sr.randint(-20, 20)
+            sy = by + sr.randint(-16, 16)
+            dr.point((sx, sy), fill=(240, 160, 60))
+    dr.text((x + 8, y + 5), "BAHRAIN \u2014 SAT NIGHT",
+            font=load_font("sans_b", 9), fill=(247, 243, 232))
 
 
-ART = {"quake": art_quake, "cop": art_cop, "trump": art_trump}
+ART = {"quake": art_quake, "cop": art_cop, "bahrain": art_bahrain}
 
 MX, MY, MW, MH = 28, 344, 556, 118
 
@@ -448,7 +499,7 @@ def render(out_path):
 
     # faint paper grain (seeded: identical every run), under everything
     grain = random.Random(SEED + 7)
-    for _ in range(9000):
+    for _ in range(16000):
         gx = grain.randint(0, W - 1)
         gy = grain.randint(96, H - 1)
         dr.point((gx, gy), fill=(238, 233, 220))
@@ -483,8 +534,8 @@ def render(out_path):
         draw_block(dr, x, 120, head, load_font("serif_b", 21), colw, INK,
                    leading=24)
         ART[art](dr, x, 186)
-        draw_block(dr, x, 264, deck, load_font("sans", 12), colw, INK,
-                   leading=15)
+        draw_block(dr, x, 266, deck, load_font("sans", 12), colw, INK,
+                   leading=13)
         dr.text((x, 308), src, font=load_font("sans", 11), fill=GRAY)
     hline(dr, 28, 996, 322, 2)
 
@@ -494,7 +545,7 @@ def render(out_path):
                  width=1)
     # stippled ocean (seeded: identical every run), drawn before land
     rng = random.Random(SEED)
-    for _ in range(1200):
+    for _ in range(2500):
         dx = MX + rng.randint(3, MW - 3)
         dy = MY + rng.randint(3, MH - 3)
         dr.ellipse([dx, dy, dx + 1, dy + 1], fill=MAPLINE)
@@ -526,7 +577,7 @@ def render(out_path):
         return c
 
     speck = random.Random(SEED + 23)
-    for _ in range(500):
+    for _ in range(900):
         sx = MX + speck.randint(3, MW - 3)
         sy = MY + speck.randint(3, MH - 3)
         if any(_inside(sx, sy, p) for p in land_polys):
@@ -538,6 +589,14 @@ def render(out_path):
             font=load_font("sans_b", 9), fill=MAPLINE)
     dr.text((MX + 330, MY + 74), "INDIAN OCEAN",
             font=load_font("sans_b", 9), fill=MAPLINE)
+    # compass rose in the open South Atlantic
+    ccx, ccy = MX + 232, MY + 100
+    dr.ellipse([ccx - 11, ccy - 11, ccx + 11, ccy + 11], outline=MAPLINE,
+               width=1)
+    dr.polygon([(ccx, ccy - 10), (ccx + 3, ccy), (ccx, ccy + 10),
+                (ccx - 3, ccy)], fill=(247, 243, 232))
+    dr.text((ccx, ccy - 19), "N", font=load_font("sans_b", 9),
+            fill=(247, 243, 232), anchor="ma")
     for num, lon, lat, nx, ny in PINS:
         px, py = project(lon, lat)
         px, py = px + nx, py + ny
@@ -564,15 +623,15 @@ def render(out_path):
 
     # ---------- day in figures ----------
     for i, (num, lab) in enumerate(FIGS):
-        x = 28 + i * 242
-        dr.rectangle([x, 560, x + 232, 606], fill=PANEL, outline=INK,
+        x = 28 + i * 194
+        dr.rectangle([x, 560, x + 184, 606], fill=PANEL, outline=INK,
                      width=1)
-        dr.line([(x, 560), (x + 232, 560)], fill=RED, width=3)
-        dr.text((x + 10, 566), num, font=load_font("serif_b", 20),
+        dr.line([(x, 560), (x + 184, 560)], fill=RED, width=3)
+        dr.text((x + 10, 566), num, font=load_font("serif_b", 18),
                 fill=INK)
-        dr.text((x + 10, 588), lab, font=load_font("sans", 10), fill=GRAY)
+        dr.text((x + 10, 590), lab, font=load_font("sans", 10), fill=GRAY)
         # tiny chart at the right of each box
-        gx0, gy0 = x + 184, 570
+        gx0, gy0 = x + 136, 570
         if i == 0:  # quake: mini seismograph zigzag
             zr = random.Random(SEED + 31)
             zpts = [(gx0 + k * 4, gy0 + 8 + zr.uniform(-7, 7))
@@ -582,9 +641,10 @@ def render(out_path):
             for b, bh in enumerate((6, 10, 15)):
                 dr.rectangle([gx0 + b * 12, gy0 + 16 - bh,
                               gx0 + b * 12 + 8, gy0 + 16], fill=STEEL)
-        elif i == 2:  # inflow: rising line with arrowhead
-            dr.line([(gx0, gy0 + 14), (gx0 + 36, gy0 + 2)], fill=STEEL,
-                    width=2)
+        elif i == 2:  # inflow: rising line with arrowhead, kept clear
+            # of the long "1.22 lakh cr" figure: it starts further right
+            dr.line([(gx0 + 12, gy0 + 14), (gx0 + 36, gy0 + 2)],
+                    fill=STEEL, width=2)
             dr.polygon([(gx0 + 36, gy0 + 2), (gx0 + 29, gy0 + 2),
                         (gx0 + 36, gy0 + 9)], fill=STEEL)
         else:  # zero: flat line with a red dot on it
@@ -620,11 +680,14 @@ def render(out_path):
             fill=RED)
     dr.text((150, 964), TICKER, font=load_font("sans", 11), fill=INK)
     hline(dr, 28, 996, 982, 1)
-    draw_block(dr, 28, 988,
+    draw_block(dr, 28, 986,
                "The Daily Globe  \u2022  Saturday 21 November 2026  "
-               "\u2022  45 stories  \u2022  Sources: Reuters, AFP, BBC, "
-               "Asia Today, The News PK, EIN Presswire, USGS",
+               "\u2022  45 stories, every one first reported 21 Nov 2026",
                load_font("sans", 11), 968, GRAY, center=True)
+    draw_block(dr, 28, 1000,
+               "Sources: Reuters, AFP, BBC, Xinhua, Asia Today, "
+               "The News PK, EIN Presswire, USGS",
+               load_font("sans", 10), 968, GRAY, center=True)
     dr.rectangle([0, 1016, W, H], fill=RED)
 
     img.save(out_path, "PNG", optimize=True)
